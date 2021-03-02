@@ -4,7 +4,11 @@ public class PawnClickDetector : MonoBehaviour
 {
     private void OnMouseDown()
     {
-
-        GetComponentInParent<TileClickDetector>().ChildPawnClicked();
+        if (!GameManager.Instance.isPlaying)
+            return;
+        if((GetComponent<PawnProperties>().PawnColor == PawnColor.White) && (GameManager.Instance.gameTurnEnum == GameManager.GameTurnEnum.WHITE) )
+                GetComponentInParent<TileClickDetector>().ChildPawnClicked();
+        if ((GetComponent<PawnProperties>().PawnColor == PawnColor.Black) && (GameManager.Instance.gameTurnEnum == GameManager.GameTurnEnum.BLACK))
+            GetComponentInParent<TileClickDetector>().ChildPawnClicked();
     }
 }

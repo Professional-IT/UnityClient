@@ -8,12 +8,19 @@ namespace UnitySocketIO {
     public class SocketIOController : MonoBehaviour {
         
         public SocketIOSettings settings;
-      
-        BaseSocketIO socketIO;
+        public string domain = "localhost";
+        public  BaseSocketIO socketIO;
+        public static SocketIOController instance;
 
         public string SocketID { get { return socketIO.SocketID; } }
 
         void Awake() {
+
+            if (instance == null)
+                instance = this;
+
+            DontDestroyOnLoad(gameObject);
+
             if(Application.platform == RuntimePlatform.WebGLPlayer) {
                 socketIO = gameObject.AddComponent<WebGLSocketIO>();
             }
@@ -23,13 +30,13 @@ namespace UnitySocketIO {
 
             if (Application.platform == RuntimePlatform.WindowsEditor)
             {
-                settings.url = "192.168.103.42";
+                settings.url = "localhost";
             }
             else
             {
                 settings.url = "192.168.103.42";
             }
-            settings.url = "192.168.103.42";
+           
             socketIO.Init(settings);
         }
 

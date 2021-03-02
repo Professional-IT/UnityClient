@@ -27,8 +27,14 @@ public class TileClickDetector : MonoBehaviour
 
     private void OnMouseDown()
     {
+
+        if (!GameManager.Instance.isPlaying)
+            return;
+        
         PlayerTurn turn = new PlayerTurn(GetComponent<TileProperties>().GetTileIndex().Index(BoardSize));
-        GameManager.Instance.socket.Emit("click", JsonUtility.ToJson(turn));
+        if(GameManager.Instance.gameType == GameManager.GameType.VSPLAYERS &&  GameManager.Instance.isPlaying)
+            GameManager.Instance.socket.Emit("click", JsonUtility.ToJson(turn));
+
         if (tileProperties.IsOccupied())
             pawnMover.PawnClicked(tileProperties.GetPawn());
         else
@@ -39,6 +45,13 @@ public class TileClickDetector : MonoBehaviour
 
     public void ClickTile()
     {
-        OnMouseDown();
+        // OnMouseDown();
+
+        PlayerTurn turn = new PlayerTurn(GetComponent<TileProperties>().GetTileIndex().Index(BoardSize));
+      
+        if (tileProperties.IsOccupied())
+            pawnMover.PawnClicked(tileProperties.GetPawn());
+        else
+            pawnMover.TileClicked(this.gameObject);
     }
 }

@@ -1,6 +1,7 @@
 ﻿using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnitySocketIO;
 
 public class GameOverPanel : MonoBehaviour
 {
@@ -9,10 +10,12 @@ public class GameOverPanel : MonoBehaviour
     public GameAudio GameAudio;
 
     private Animator gameOverPanelAnimator;
+    SocketIOController socket;
 
     private void Awake()
     {
         gameOverPanelAnimator = GetComponent<Animator>();
+        socket = SocketIOController.instance;
     }
 
     public void SetWinnerText(PawnColor winnerPawnColor)
@@ -33,6 +36,7 @@ public class GameOverPanel : MonoBehaviour
     public void LoadMenuScene()
     {
         SceneManager.LoadScene("Menu", LoadSceneMode.Single);
+        socket.Emit("leaveRoom");
     }
 
     public void FadeGameMusic()

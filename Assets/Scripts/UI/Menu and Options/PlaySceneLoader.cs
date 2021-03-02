@@ -7,7 +7,7 @@ public class PlaySceneLoader : MonoBehaviour
     
     public void LoadMultiPlayScene()
     {
-        SceneManager.LoadScene("Multiplayer", LoadSceneMode.Single);
+        SceneManager.LoadScene("MultiDashboard", LoadSceneMode.Single);
     }
 
     public void LoadMainPlayScene()

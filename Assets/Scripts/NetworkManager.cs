@@ -117,6 +117,7 @@ public class NetworkManager : MonoBehaviour {
     void OnEnemies(SocketIOEvent socketIOEvent)
     {
         EnemiesJSON enemiesJSON = EnemiesJSON.CreateFromJSON(socketIOEvent.data.ToString());
+        Debug.Log(socketIOEvent.data.ToString());
         EnemySpawner es = GetComponent<EnemySpawner>();
         es.SpawnEnemies(enemiesJSON);
     }
