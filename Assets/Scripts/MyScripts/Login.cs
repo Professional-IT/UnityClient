@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
 using LitJson;
+using UnityEngine.SceneManagement;
 
 public class Login : MonoBehaviour
 {
@@ -76,6 +77,8 @@ public class Login : MonoBehaviour
         Global.m_user.name = json["data"]["name"].ToString();
         Global.m_user.score = long.Parse(json["data"]["score"].ToString());
 
+
+        SceneManager.LoadScene("Menu");
         Debug.Log(Global.m_user.name);
     }
 }

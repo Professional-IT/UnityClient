@@ -11,7 +11,7 @@ namespace UnitySocketIO {
         public string domain = "localhost";
         public  BaseSocketIO socketIO;
         public static SocketIOController instance;
-
+        public bool isTesting = false;
         public string SocketID { get { return socketIO.SocketID; } }
 
         void Awake() {
@@ -36,7 +36,10 @@ namespace UnitySocketIO {
             {
                 settings.url = "192.168.103.42";
             }
-           
+
+
+            if (isTesting)
+                settings.url = domain;
             socketIO.Init(settings);
         }
 
